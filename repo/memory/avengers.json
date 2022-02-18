@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "privilege": 2,
+    "name": "Tony Stark",
+    "heroName": "Iron Man",
+    "abilities": [
+      {
+        "name": "Highly Intelligent Suit of Armor"
+      }
+    ],
+    "missionsCompleted": 0
+  }
+]
