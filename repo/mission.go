@@ -1,7 +1,8 @@
 package repo
 
-// import "github.com/akash-scalent/shield-system/entity"
+import "github.com/akash-scalent/shield-system/entity"
 
-// type MissionRepository interface {
-// 	CreateMission
-// }
+type MissionRepository interface {
+	AddMission(*entity.Mission) error
+	GetAllMissions() []*entity.Mission
+}

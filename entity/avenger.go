@@ -1,26 +1,23 @@
 package entity
 
+import "github.com/akash-scalent/shield-system/constants"
+
 type Ability struct {
-	Name string
+	ID   int    `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
 }
 
-type Status string
-
-const (
-	Assigned  Status = "Assigned"
-	Completed Status = "Completed"
-)
-
-type Missions struct {
+type Mission struct {
+	ID     int    `json:"id"`
 	Name   string `json:"name"`
 	Detail string `json:"detail"`
-	Status
+	constants.Status
 }
 
 type Avenger struct {
 	User
-	HeroName          string    `json:"heroName"`
-	Abilities         []Ability `json:"abilities"`
-	CurrentMissions   Missions  `json:"missions"`
+	HeroName          string `json:"heroName"`
+	AbilityIds        []int  `json:"abilityIds"`
+	CurrentMissionIds []int  `json:"currentMissionIds"`
 	MissionsCompleted int
 }

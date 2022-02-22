@@ -1,25 +1,42 @@
 package service
 
 import (
-	"errors"
-
+	"github.com/akash-scalent/shield-system/constants"
 	"github.com/akash-scalent/shield-system/entity"
 	"github.com/akash-scalent/shield-system/repo"
 	"github.com/akash-scalent/shield-system/repo/memory"
+	"github.com/akash-scalent/shield-system/utils"
 )
 
 type UserService struct {
 }
 
-var rep repo.UserRepository = memory.NewMemoryRepository()
+var rep repo.UserRepository = memory.NewUserMemoryRepository()
 
 func (*UserService) GetStatusOfAvengers() []entity.Avenger {
 	return rep.GetAllAvengers()
 }
 
-func (*UserService) AddAvenger(avenger *entity.Avenger) (*entity.Avenger, error) {
+func (*UserService) AddAvenger(avenger *entity.Avenger)  error {
 	if avenger.Name == "" || avenger.HeroName == "" {
-		return avenger, errors.New("avenger name or heroname cannot be empty")
+		return  constants.ErrAvengerNameOrHeroNameEmpty
 	}
-	return nil, nil
+  err:=	rep.AddAvenger(avenger)
+	if err != nil {
+		return  err
+	}
+	return  nil
+}
+
+func (*UserService) AssignMissionToAvenger(missionIds int, avengerIds []int ) error {
+	if err := utils.CheckIfEmpty("missionIds",missionIds); err != nil {
+		return err
+	} else if err := utils.CheckIfEmpty("avengerIds",avengerIds); err != nil {
+		return err
+	} 
+	err := rep.AssignMissionToAvenger(missionIds,avengerIds)
+	if err != nil {
+		return err
+	}
+	return nil
 }
